@@ -4,10 +4,11 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import lombok.Data;
 
-@ConfigurationProperties("default")
 @Data
+@ConfigurationProperties(prefix = "news")
 public class DefaultProperties {
 
-	private String newsSource;
-	
+    // @Value("${default.news.source}")
+    private String newsSource;
+
 }
