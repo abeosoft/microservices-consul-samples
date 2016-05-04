@@ -11,4 +11,11 @@ spring:
       discovery:
         healthCheckInterval: 30s
       config:
-        enabled: true    
+        enabled: true
+  data:
+    mongodb:
+      host: localhost 
+      port: 27017
+      database: newsdb
+      username: test
+      password: password
