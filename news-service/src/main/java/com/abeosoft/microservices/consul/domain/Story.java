@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 
+
 public class Story {
 
     @Id
