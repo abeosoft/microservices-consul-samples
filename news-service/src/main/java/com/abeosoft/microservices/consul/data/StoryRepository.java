@@ -7,8 +7,11 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.abeosoft.microservices.consul.domain.Story;
 
-public interface StoryRepository extends MongoRepository<Story, String> {
-    public Story findByTitle(String title);
+public interface StoryRepository extends MongoRepository<Story, String>, StoryRepositoryCustom {
+
+    public List<Story> findByTitleLikeOrderByPublishDateDesc(String title);
+
+    public List<Story> findByTitle(String title);
 
     public List<Story> findBySource(String source);
 

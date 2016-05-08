@@ -1,8 +1,5 @@
 package com.abeosoft.microservices.consul.data;
 
-import java.util.Calendar;
-
-import org.apache.commons.lang.time.DateUtils;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -18,8 +15,10 @@ public class StoryDocumentConverter implements Converter<Story, DBObject> {
 	dbo.put("_id", source.getId());
 	dbo.put("title", source.getTitle());
 	dbo.put("author", source.getAuthor());
-
-	dbo.put("publishDate", DateUtils.truncate(source.getPublishDate(), Calendar.HOUR));
+	dbo.put("article", source.getArticle());
+	// dbo.put("publishDate", DateUtils.truncate(source.getPublishDate(),
+	// Calendar.DAY_OF_MONTH));
+	dbo.put("publishDate", source.getPublishDate());
 	dbo.put("source", source.getSource());
 	dbo.removeField("_class");
 	return dbo;
