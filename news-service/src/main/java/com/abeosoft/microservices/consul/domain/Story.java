@@ -4,26 +4,37 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+
 import org.springframework.data.annotation.Id;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonFormat.Shape;
-
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Story {
 
     @Id
+    @XmlElement(name = "id")
     private String id;
 
-    private String source;
-
+    @XmlElement(name = "title")
     private String title;
 
-    @JsonFormat(shape = Shape.STRING, pattern = "MM-dd-YYYY")
+    @XmlElement(name = "source")
+    private String source;
+
+    @XmlElement(name = "publish_date")
     private LocalDateTime publishDate;
 
+    @XmlElement(name = "author")
     private String author;
 
+    @XmlElement(name = "article")
     private String article;
+
+    public Story() {
+	super();
+    }
 
     public Story(String title, LocalDateTime publishDate, String author, String article) {
 	this.source = "WEB";
@@ -81,6 +92,7 @@ public class Story {
 	this.article = article;
     }
 
+    // @JsonFormat(shape = Shape.STRING, pattern = "MM-dd-YYYY")
     public Date getPublishDateLegacy() {
 	return Date.from(publishDate.atZone(ZoneId.systemDefault()).toInstant());
     }

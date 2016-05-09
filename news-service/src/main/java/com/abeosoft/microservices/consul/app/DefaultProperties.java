@@ -1,4 +1,4 @@
-package com.abeosoft.microservices.consul.config;
+package com.abeosoft.microservices.consul.app;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

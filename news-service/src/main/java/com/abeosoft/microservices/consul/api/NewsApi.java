@@ -1,72 +1,95 @@
 package com.abeosoft.microservices.consul.api;
 
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static javax.ws.rs.core.MediaType.APPLICATION_XML;
+
 import java.util.List;
 
-import javax.inject.Inject;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.abeosoft.microservices.consul.data.StoryRepository;
 import com.abeosoft.microservices.consul.domain.Story;
+import com.abeosoft.microservices.consul.domain.StoryList;
 
 @RestController
+@Path("/stories")
+@Produces({ APPLICATION_JSON, APPLICATION_XML })
 public class NewsApi {
 
     private Logger logger = LoggerFactory.getLogger(NewsApi.class);
 
-    @Inject
+    @Autowired
     private StoryRepository storyRepository;
 
-    @RequestMapping(value = "/stories", produces = { "application/json" })
+    @GET
     public List<Story> getStories() {
 	List<Story> storiesByAuthor = storyRepository.findAll(new Sort(Sort.Direction.ASC, "author"));
 	logger.debug("Repository returned count: " + storiesByAuthor.size());
 	return storiesByAuthor;
     }
 
-    @RequestMapping(value = "/stories/contents", produces = { "application/json" })
-    public Story getStoriesByTitle(@RequestParam(value = "title", required = false) String title) {
+    @GET
+    @Path("/id/{id}")
+    public Story getStoriesById(@PathParam("id") String id) {
+	logger.debug("Get Story by ID: " + id);
+	Story storiesByTitle = storyRepository.findOne(id);
+	logger.debug("Repository returned count: " + (storiesByTitle != null ? 1 : 0));
+	return storiesByTitle;
+    }
+
+    @GET
+    @Path("/title/{title}")
+    public Story getStoriesByTitle(@PathParam("title") String title) {
 	Story storiesByTitle = storyRepository.findByTitle(title);
 	logger.debug("Repository returned count: " + (storiesByTitle != null ? 1 : 0));
 	return storiesByTitle;
     }
 
-    @RequestMapping(value = "/stories/terms/{terms}", produces = { "application/json" })
-    public List<Story> getStoriesByTerms(@PathVariable String terms) {
-	List<Story> storiesByAuthor = storyRepository.findByTitleLikeOrderByPublishDateDesc(terms);
+    @GET
+    @Path("/terms/{terms}")
+    public StoryList getStoriesByTerms(@PathParam("terms") String terms) {
+	List<Story> storiesByAuthor = storyRepository.findByTitleLikeIgnoreCaseOrderByPublishDateDesc(terms);
 	logger.debug("Repository returned count: " + storiesByAuthor.size());
-	return storiesByAuthor;
+	return new StoryList(storiesByAuthor);
     }
 
-    @RequestMapping(value = "/stories/authors/{author}", produces = { "application/json" })
-    public List<Story> getStoriesByAuthor(@PathVariable String author) {
+    @GET
+    @Path("/authors/{author}")
+    public List<Story> getStoriesByAuthor(@PathParam("author") String author) {
 	List<Story> storiesByAuthor = storyRepository.findByAuthor(author);
 	logger.debug("Repository returned count: " + storiesByAuthor.size());
 	return storiesByAuthor;
     }
 
-    @RequestMapping(value = "/stories/sources/{source}", produces = { "application/json" })
-    public List<Story> getStoriesBySource(@PathVariable String source) {
+    @GET
+    @Path("/sources/{source}")
+    public List<Story> getStoriesBySource(@PathParam("source") String source) {
 	List<Story> storiesBySource = storyRepository.findBySourceOrderByTitleAsc(source);
 	logger.debug("Repository returned count: " + storiesBySource.size());
 	return storiesBySource;
     }
 
-    @RequestMapping(value = "/stories/daily", produces = { "application/json" })
+    @GET
+    @Path("/periodic/daily")
     public List<Story> getDailyStories() {
 	List<Story> storiesByPublishDate = storyRepository.getDailyStories();
 	logger.debug("Repository returned count: " + storiesByPublishDate.size());
 	return storiesByPublishDate;
     }
 
-    @RequestMapping(value = "/stories/count/authors/{author}", produces = { "application/json" })
+    @GET
+    @Path("/summary/authors/{author}")
     public String countStoriesByAuthor(@PathVariable String author) {
 	long count = storyRepository.countByAuthor(author);
 	JSONObject json = new JSONObject();
@@ -74,13 +97,4 @@ public class NewsApi {
 	json.put("story_count", count);
 	return json.toString();
     }
-
-    // @Autowired
-    // private StoryRepository storyRepository;
-    // @RequestMapping(value = "/stories/today/{page}", produces = {
-    // "application/json" })
-    // public Collection<Story> getDailyStories(@PathVariable int page) {
-    // return storyRepository.findAll(new PageRequest(page,
-    // PAGE_SIZE)).getContent();
-    // }
 }

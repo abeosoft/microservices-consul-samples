@@ -1,4 +1,4 @@
-package com.abeosoft.microservices.consul;
+package com.abeosoft.microservices.consul.data;
 
 import java.time.LocalDateTime;
 
@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.abeosoft.microservices.consul.data.StoryRepository;
 import com.abeosoft.microservices.consul.domain.Story;
 
 @Component

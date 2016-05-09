@@ -8,14 +8,11 @@ import com.abeosoft.microservices.consul.domain.Story;
 
 public interface StoryRepository extends MongoRepository<Story, String>, StoryRepositoryCustom {
 
-    public List<Story> findByTitleLikeOrderByPublishDateDesc(String title);
+    public List<Story> findByTitleLikeIgnoreCaseOrderByPublishDateDesc(String title);
 
     public Story findByTitle(String title);
 
     public List<Story> findBySourceOrderByTitleAsc(String source);
-
-    // public List<Story> findByPublishDateLikeOrderByTitleAsc(Date
-    // publishDate);
 
     public List<Story> findByAuthor(String author);
 
