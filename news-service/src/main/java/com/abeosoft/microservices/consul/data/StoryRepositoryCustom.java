@@ -9,7 +9,6 @@ import com.abeosoft.microservices.consul.domain.Story;
 @NoRepositoryBean
 public interface StoryRepositoryCustom {
 
-    long countStoriesByAuthor(String author);
+    List<Story> getDailyStories();
 
-    List<Story> getStoriesByAuthor(String author);
 }

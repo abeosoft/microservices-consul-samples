@@ -1,12 +1,13 @@
 package com.abeosoft.microservices.consul.domain;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 import org.springframework.data.annotation.Id;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
-
 
 public class Story {
 
@@ -18,13 +19,13 @@ public class Story {
     private String title;
 
     @JsonFormat(shape = Shape.STRING, pattern = "MM-dd-YYYY")
-    private Date publishDate;
+    private LocalDateTime publishDate;
 
     private String author;
 
     private String article;
 
-    public Story(String title, Date publishDate, String author, String article) {
+    public Story(String title, LocalDateTime publishDate, String author, String article) {
 	this.source = "WEB";
 	this.title = title;
 	this.publishDate = publishDate;
@@ -56,11 +57,11 @@ public class Story {
 	this.title = title;
     }
 
-    public Date getPublishDate() {
+    public LocalDateTime getPublishDate() {
 	return publishDate;
     }
 
-    public void setPublishDate(Date publishDate) {
+    public void setPublishDate(LocalDateTime publishDate) {
 	this.publishDate = publishDate;
     }
 
@@ -78,5 +79,9 @@ public class Story {
 
     public void setArticle(String article) {
 	this.article = article;
+    }
+
+    public Date getPublishDateLegacy() {
+	return Date.from(publishDate.atZone(ZoneId.systemDefault()).toInstant());
     }
 }

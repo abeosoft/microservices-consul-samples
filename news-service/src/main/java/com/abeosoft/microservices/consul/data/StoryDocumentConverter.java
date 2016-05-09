@@ -16,9 +16,7 @@ public class StoryDocumentConverter implements Converter<Story, DBObject> {
 	dbo.put("title", source.getTitle());
 	dbo.put("author", source.getAuthor());
 	dbo.put("article", source.getArticle());
-	// dbo.put("publishDate", DateUtils.truncate(source.getPublishDate(),
-	// Calendar.DAY_OF_MONTH));
-	dbo.put("publishDate", source.getPublishDate());
+	dbo.put("publishDate", source.getPublishDateLegacy());
 	dbo.put("source", source.getSource());
 	dbo.removeField("_class");
 	return dbo;

@@ -1,6 +1,5 @@
 package com.abeosoft.microservices.consul.data;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -11,11 +10,14 @@ public interface StoryRepository extends MongoRepository<Story, String>, StoryRe
 
     public List<Story> findByTitleLikeOrderByPublishDateDesc(String title);
 
-    public List<Story> findByTitle(String title);
+    public Story findByTitle(String title);
 
-    public List<Story> findBySource(String source);
+    public List<Story> findBySourceOrderByTitleAsc(String source);
 
-    public List<Story> findByPublishDate(Date publishDate);
+    // public List<Story> findByPublishDateLikeOrderByTitleAsc(Date
+    // publishDate);
 
     public List<Story> findByAuthor(String author);
+
+    public long countByAuthor(String author);
 }
