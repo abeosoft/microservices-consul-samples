@@ -9,5 +9,6 @@
 	
 	<modules>
 		<module>news-service</module>
+		<module>news-service-cxf</module>
 	</modules>
 </project>

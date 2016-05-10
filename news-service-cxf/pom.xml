@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.abeosoft.microservices.consul</groupId>
-	<artifactId>news-service</artifactId>
+	<artifactId>news-service-cxf</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>news-service</name>
-	<description>News Microservice</description>
+	<name>news-service-cxf</name>
+	<description>News Microservice - CXF Implementation</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -21,7 +21,9 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
+		<cxf.version>3.1.6</cxf.version>
 		<jackson.version>2.7.4</jackson.version>
+		<swagger.version>1.5.8</swagger.version>
 	</properties>
 
 	<dependencies>
@@ -59,27 +61,92 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
+		<!-- Configuration Props -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jersey</artifactId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
 		</dependency>
+
+		<!-- Apache CXF / JAX-RS implementation -->
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-frontend-jaxrs</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-transports-http</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-rs-extension-providers</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.cxf</groupId>
+			<artifactId>cxf-rt-rs-service-description</artifactId>
+			<version>${cxf.version}</version>
+		</dependency>
+
+		<!-- JAXB/JSON -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+
 		<dependency>
 			<groupId>com.fasterxml.jackson.jaxrs</groupId>
 			<artifactId>jackson-jaxrs-json-provider</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.fasterxml.jackson.jaxrs</groupId>
+			<artifactId>jackson-jaxrs-xml-provider</artifactId>
+			<version>${jackson.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jsr310</artifactId>
 		</dependency>
 
-		<!-- Configuration Props -->
+		<!-- Swagger Libraries -->
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-jaxrs</artifactId>
+			<version>${swagger.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-annotations</artifactId>
+			<version>${swagger.version}</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-core</artifactId>
+			<version>${swagger.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<!-- Java CDI -->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
 		</dependency>
 
 		<!-- Lombok -->
@@ -88,20 +155,7 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-
-		<!-- Java CDI -->
-		<dependency>
-			<groupId>javax.inject</groupId>
-			<artifactId>javax.inject</artifactId>
-		</dependency>
-
-		<!-- Apache Language Commons -->
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.3.2</version>
-		</dependency>
-
+		
 		<!-- Spring Boot Devtools -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -113,11 +167,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>com.fasterxml.jackson.datatype</groupId>
-			<artifactId>jackson-datatype-joda</artifactId>
 		</dependency>
 	</dependencies>
 

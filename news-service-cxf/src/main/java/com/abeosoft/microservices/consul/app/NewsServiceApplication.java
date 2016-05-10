@@ -9,11 +9,13 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.Import;
 
 import com.abeosoft.microservices.consul.api.NewsApi;
 
 @SpringBootApplication
 @EnableDiscoveryClient
+@Import(value = { SpringDataConfiguration.class, SpringCxfConfiguration.class })
 public class NewsServiceApplication extends SpringBootServletInitializer {
 
     private static final Logger logger = LoggerFactory.getLogger(NewsServiceApplication.class);
