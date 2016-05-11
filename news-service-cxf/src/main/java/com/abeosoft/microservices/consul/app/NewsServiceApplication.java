@@ -18,6 +18,6 @@ public class NewsServiceApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
 	ConfigurableApplicationContext context = new NewsServiceApplication().configure(new SpringApplicationBuilder(NewsServiceApplication.class)).run(args);
-	logger.debug("Initialized App: " + context.getApplicationName());
+	logger.debug("Initialized App with bean count: " + context.getBeanDefinitionCount());
     }
 }

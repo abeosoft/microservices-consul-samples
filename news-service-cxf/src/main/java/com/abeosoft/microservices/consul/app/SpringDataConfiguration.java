@@ -21,4 +21,5 @@ public class SpringDataConfiguration {
 	converters.add(new StoryDocumentConverter());
 	return new CustomConversions(converters);
     }
+    
 }
