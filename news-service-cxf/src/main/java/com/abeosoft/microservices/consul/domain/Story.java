@@ -5,10 +5,12 @@ import java.time.LocalDateTime;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.data.annotation.Id;
 
 @XmlAccessorType(XmlAccessType.FIELD)
+@XmlRootElement(name = "story")
 public class Story {
 
     @Id

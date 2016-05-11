@@ -15,19 +15,19 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.abeosoft.microservices.consul.data.StoryRepository;
 import com.abeosoft.microservices.consul.domain.Story;
 import com.abeosoft.microservices.consul.domain.StoryList;
 
-@RestController
+@Controller
 @Path("/stories")
 @Produces({ APPLICATION_JSON, APPLICATION_XML })
-public class NewsApi {
+public class NewsEndpoint {
 
-    private Logger logger = LoggerFactory.getLogger(NewsApi.class);
+    private Logger logger = LoggerFactory.getLogger(NewsEndpoint.class);
 
     @Autowired
     private StoryRepository storyRepository;

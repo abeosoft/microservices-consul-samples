@@ -19,9 +19,13 @@ spring:
       database: newsdb
       username: test
       password: password
-  jackson:
-    serialization:
-      write-dates-as-timestamps: false
+
+app:
+  logging:
+    cxf:
+      request:
+        enabled: true
+
 endpoints:
   health:
     enabled: true

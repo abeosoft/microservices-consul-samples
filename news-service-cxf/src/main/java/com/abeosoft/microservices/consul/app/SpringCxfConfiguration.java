@@ -46,13 +46,14 @@ public class SpringCxfConfiguration {
     @Autowired
     private ApplicationContext ctx;
 
-    @Value("${spring.application.name}")
+    @Value("${spring.application.name:news}")
     private String applicationName;
 
-    @Value("${server.port}")
+    @Value("${server.port:8080}")
     private String serverPort;
 
-    private boolean logRequests = true;
+    @Value("${app.logging.cxf.request.enabled:false}")
+    private boolean requestLoggingEnabled;
 
     @Bean
     public ServletRegistrationBean dispatcherCXFServlet() {
@@ -84,7 +85,7 @@ public class SpringCxfConfiguration {
 
 	Server server = factory.create();
 
-	if (logRequests) {
+	if (requestLoggingEnabled) {
 	    server.getEndpoint().getInInterceptors().add(new LoggingInInterceptor());
 	}
 

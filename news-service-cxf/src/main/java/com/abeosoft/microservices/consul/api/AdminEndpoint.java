@@ -10,12 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.env.Environment;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 
-@RestController
+@Controller
 @Path("/")
 @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-public class AdminApi {
+public class AdminEndpoint {
 
     @Autowired
     private Environment env;

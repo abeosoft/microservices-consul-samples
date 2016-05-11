@@ -7,7 +7,7 @@
 
 @XmlJavaTypeAdapters({ @XmlJavaTypeAdapter(type = LocalDateTime.class, value = LocalDateTimeXmlAdapter.class) })
 
-@javax.xml.bind.annotation.XmlSchema(namespace = "com.abeosoft.microservices.newsapp.consul", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
+@javax.xml.bind.annotation.XmlSchema(namespace = "com.abeosoft.microservices.newsapp.consul.cxf", elementFormDefault = javax.xml.bind.annotation.XmlNsForm.QUALIFIED)
 package com.abeosoft.microservices.consul.domain;
 
 import java.time.LocalDateTime;
